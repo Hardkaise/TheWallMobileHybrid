@@ -1,0 +1,7 @@
+{
+  "name": "mobile-hybrid-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
