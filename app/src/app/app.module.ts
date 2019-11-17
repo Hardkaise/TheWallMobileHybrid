@@ -9,6 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { CameraUtils } from './utils/camera.utils';
+import { Camera } from '@ionic-native/camera/ngx';
+// import { Storage } from '@ionic/storage';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +28,14 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     StatusBar,
     SplashScreen,
     NativeStorage,
+    CameraUtils,
+    Camera,
+    AndroidPermissions,
+    // File,
+    // Storage,
+    FilePath,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, ]
 })
 export class AppModule {}
