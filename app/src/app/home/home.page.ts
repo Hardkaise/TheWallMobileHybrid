@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Router } from '@angular/router';
 
 
 // import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -12,7 +13,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 })
 export class HomePage {
   feedData: any[] = [];
-  constructor(    private androidPermissions: AndroidPermissions,    private camera: Camera) { }
+  enter: boolean = false;
+  constructor(private router : Router,
+    private androidPermissions: AndroidPermissions,    private camera: Camera) { }
   
   ngOnInit() {  
     this.fakeData()
@@ -46,45 +49,62 @@ export class HomePage {
   }
  
  
-  takeSnap() {
-    this.camera.getPicture(this.cameraOptions).then((imageData) => {
+  async takeSnap() {
+    try {
+      const imageData = await this.camera.getPicture(this.cameraOptions);
       // this.camera.DestinationType.FILE_URI gives file URI saved in local
       // this.camera.DestinationType.DATA_URL gives base64 URI
-      
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.capturedSnapURL = base64Image;
-    }, (err) => {
-      
+      return base64Image;
+    }
+    catch (err) {
       console.log(err);
-      // Handle error
-    });
+    }
   }
-  takePicture() {
+  async takePicture() {
+    
     console.log('permission')
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+    await this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
       result => {
         console.log('Has permission?',result.hasPermission)
         if (result.hasPermission) this.takeSnap();
-      
+        this.enter = true;
       },
       err => {
+
         console.log(err);
         console.log('here err');
         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA).then(res => {
           console.log(res);
          if (res.hasPermission) this.takeSnap();
+         this.enter = true;
 
         },err => {
           console.log(err);
           console.log('here err');
+          
         })
        
       })
-    // this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS])
-
+    if (this.enter === false && this.capturedSnapURL === undefined) this.takeSnap(); 
+    console.log("her")
     console.log(this.capturedSnapURL);
+
+
+  
   }
   getFile() {
     console.log()
+    console.log(this.capturedSnapURL);
+    if (this.capturedSnapURL) 
+    this.feedData.push({
+      img : this.capturedSnapURL,
+      title: "pushed",
+      like: "32"
+    })
+    console.log(this.capturedSnapURL);
+
+
   }
 }
