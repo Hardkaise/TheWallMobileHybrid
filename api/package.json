@@ -46,7 +46,9 @@
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.7.11",
     "serve-favicon": "^2.5.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "shx": "^0.3.2",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "@types/compression": "^1.0.1",
