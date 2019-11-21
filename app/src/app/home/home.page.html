@@ -11,13 +11,15 @@
 
 <ion-content class="card-background-page">
 
-    <ion-card (click)="openDetailsWithService(index)" *ngFor="let data of feedData; let index = index;">
+    <ion-card (click)="openDetailsWithService(index)" *ngFor="let data of photoService.feedData; let index = index;">
       <ion-text>{{index}}</ion-text>
       <img src={{data.img}} />
       <div class="card-title">{{data.title}}</div>
       <div class="card-subtitle">{{data.like}}</div>
     </ion-card>
-    <ion-button (click)="takePicture()" >Camera</ion-button>
-    <ion-button (click)="getFile()" >Upload</ion-button>
-
+    <div style="position: fixed;bottom: 0;">
+        <ion-button (click)="takePicture()" >Camera</ion-button>
+        <ion-button (click)="getFile()" >Upload</ion-button>    
+    </div>
+    
   </ion-content>

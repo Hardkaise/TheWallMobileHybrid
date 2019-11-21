@@ -34,16 +34,38 @@ export class PhotoService {
   }
   getfeedDataByid(id: string) {
     console.log(this._pos);
-    console.log(this._feedData);
+    console.log();
+    if (this._feedData.length === 0) {
+      this.fakeData();
+
+    }
     if (this.feedData[this._pos]._id === id) {
       return this.feedData[this._pos]
     }
-    this.fakeData();
     /// data not found in array
     console.log("data not found in array");
   }
   fakeData() {
-    throw new Error("Method not implemented.");
-  }
+    this.feedData.push({
+      _id: "lel",
+      img: "assets/img/cat.jpg",
+      title: "hello",
+      like: "33"
+    })
+  
+    this.feedData.push({
+      _id: "fuck",
+
+      img: "assets/img/index.jpg",
+      title: "test",
+      like: "33"
+    })
+    this.feedData.push({
+      _id: "motherfucker",
+      img: "assets/img/cat.jpg",
+      title: "hello",
+      like: "33"
+    }) 
+   }
 
 }

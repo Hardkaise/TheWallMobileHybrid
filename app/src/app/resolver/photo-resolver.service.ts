@@ -14,4 +14,5 @@ export class PhotoResolverService {
     console.log(id);
     console.log(this.dataService.getfeedDataByid(id))
     return this.dataService.getfeedDataByid(id);
-  }}
+  }
+}
