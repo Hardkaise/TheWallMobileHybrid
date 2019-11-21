@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card *ngIf="data">
+      <ion-card-header>
+        <ion-card-title>
+          {{ data.name }}
+        </ion-card-title>
+        <ion-card-subtitle>
+            {{ data.website }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let i of data.interests">
+          {{ i }}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    </ion-content>

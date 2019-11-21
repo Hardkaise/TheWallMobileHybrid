@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { PhotoService } from '../services/photo.service';
 
 
 // import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -14,8 +15,12 @@ import { Router } from '@angular/router';
 export class HomePage {
   feedData: any[] = [];
   enter: boolean = false;
+  data: any;
   constructor(private router : Router,
-    private androidPermissions: AndroidPermissions,    private camera: Camera) { }
+    private androidPermissions: AndroidPermissions,
+    private camera: Camera,
+    private photoService: PhotoService
+    ) { }
   
   ngOnInit() {  
     this.fakeData()
@@ -23,21 +28,27 @@ export class HomePage {
 
   fakeData() {
     this.feedData.push({
+      _id: "lel",
       img: "assets/img/cat.jpg",
       title: "hello",
       like: "33"
     })
   
     this.feedData.push({
+      _id: "fuck",
+
       img: "assets/img/index.jpg",
       title: "test",
       like: "33"
     })
     this.feedData.push({
+      _id: "motherfucker",
       img: "assets/img/cat.jpg",
       title: "hello",
       like: "33"
     })
+    this.photoService.feedData = this.feedData;
+
   }
   capturedSnapURL:string;
  
@@ -90,10 +101,9 @@ export class HomePage {
     if (this.enter === false && this.capturedSnapURL === undefined) this.takeSnap(); 
     console.log("her")
     console.log(this.capturedSnapURL);
-
-
-  
   }
+
+
   getFile() {
     console.log()
     console.log(this.capturedSnapURL);
@@ -104,7 +114,17 @@ export class HomePage {
       like: "32"
     })
     console.log(this.capturedSnapURL);
-
-
   }
+
+  openDetailsWithService(index : number) {
+    console.log(index);
+    console.log(this.photoService.feedData[index])
+    this.photoService.pos = index;
+    this.photoService.id = this.photoService.feedData[index]._id;
+    console.log(this.photoService.feedData[index]);
+    this.router.navigateByUrl('/details/'+ this.photoService.feedData[index]._id);
+  }
+
 }
+
+

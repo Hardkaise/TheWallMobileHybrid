@@ -11,7 +11,8 @@
 
 <ion-content class="card-background-page">
 
-    <ion-card *ngFor="let data of feedData">
+    <ion-card (click)="openDetailsWithService(index)" *ngFor="let data of feedData; let index = index;">
+      <ion-text>{{index}}</ion-text>
       <img src={{data.img}} />
       <div class="card-title">{{data.title}}</div>
       <div class="card-subtitle">{{data.like}}</div>
