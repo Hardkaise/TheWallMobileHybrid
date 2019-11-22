@@ -15,6 +15,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],

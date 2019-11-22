@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiServiceAxios} from '../../services/apiServiceAxios.service'
+import {ApiServiceAxios} from '../../../services/apiServiceAxios.service'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { access } from 'fs';
 import { Router } from '@angular/router';

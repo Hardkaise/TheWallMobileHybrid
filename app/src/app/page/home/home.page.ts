@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Router, NavigationExtras } from '@angular/router';
-import { PhotoService } from '../services/photo.service';
+import { PhotoService } from '../../services/photo.service';
 
 
 // import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -13,7 +13,6 @@ import { PhotoService } from '../services/photo.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  feedData: any[] = [];
   enter: boolean = false;
   data: any;
   constructor(private router : Router,
@@ -23,33 +22,9 @@ export class HomePage {
     ) { }
   
   ngOnInit() {  
-    this.fakeData()
+    this.photoService.fakeData()
   } 
 
-  fakeData() {
-    this.feedData.push({
-      _id: "lel",
-      img: "assets/img/cat.jpg",
-      title: "hello",
-      like: "33"
-    })
-  
-    this.feedData.push({
-      _id: "fuck",
-
-      img: "assets/img/index.jpg",
-      title: "test",
-      like: "33"
-    })
-    this.feedData.push({
-      _id: "motherfucker",
-      img: "assets/img/cat.jpg",
-      title: "hello",
-      like: "33"
-    })
-    this.photoService.feedData = this.feedData;
-
-  }
   capturedSnapURL:string;
  
   cameraOptions: CameraOptions = {
@@ -108,7 +83,7 @@ export class HomePage {
     console.log()
     console.log(this.capturedSnapURL);
     if (this.capturedSnapURL) 
-    this.feedData.push({
+    this.photoService.feedData.push({
       img : this.capturedSnapURL,
       title: "pushed",
       like: "32"
@@ -124,7 +99,6 @@ export class HomePage {
     console.log(this.photoService.feedData[index]);
     this.router.navigateByUrl('/details/'+ this.photoService.feedData[index]._id);
   }
-
 }
 
 

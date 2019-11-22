@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
+import { FooterComponent } from './component/footer/footer.component';
+import { HeaderComponent } from './component/header/header.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,9 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: []
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+  ], exports: [HeaderComponent, FooterComponent]
 })
-export class RegisterPageModule {}
+export class SharedModule {}
