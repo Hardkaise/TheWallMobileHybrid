@@ -1,5 +1,6 @@
 import * as authentication from '@feathersjs/authentication';
 import generateNotification from "../../hooks/generate-notification";
+import likeUnique from '../../hooks/like-unique';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -9,7 +10,7 @@ export default {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [likeUnique()],
     update: [],
     patch: [],
     remove: []
