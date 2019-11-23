@@ -1,4 +1,5 @@
 import * as authentication from '@feathersjs/authentication';
+import onImageUpdated from '../../hooks/on-image-updated';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -18,7 +19,7 @@ export default {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [onImageUpdated()],
     update: [],
     patch: [],
     remove: []

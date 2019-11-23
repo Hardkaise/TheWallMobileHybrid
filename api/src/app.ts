@@ -19,6 +19,7 @@ import channels from './channels';
 import authentication from './authentication';
 import mongoose from './mongoose';
 // Don't remove this comment. It's needed to format import lines nicely.
+require('dotenv').config();
 
 const app: Application = express(feathers());
 
