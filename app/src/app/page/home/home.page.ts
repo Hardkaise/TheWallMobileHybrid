@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router  } from '@angular/router';
 import { PhotoService } from '../../services/photo.service';
 
 

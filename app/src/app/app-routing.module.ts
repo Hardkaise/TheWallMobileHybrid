@@ -26,6 +26,9 @@ const routes: Routes = [
       special: PhotoResolverService
     },
   },
+  { path: 'add-friend', loadChildren: './page/add-friend/add-friend.module#AddFriendPageModule' },
+  { path: 'commentary', loadChildren: './page/commentary/commentary.module#CommentaryPageModule' },
+
 
 ];
 

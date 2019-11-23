@@ -2,11 +2,29 @@ import {Injectable} from '@angular/core';
 import * as io from "socket.io-client";
 import feathers, {Paginated, Service} from '@feathersjs/feathers';
 import feathersSocketIOClient from '@feathersjs/socketio-client';
-// import feathersAuthClient from '@feathersjs/authentication-client';
+import feathersAuthClient from '@feathersjs/authentication-client';
 import feathersRx from 'feathers-reactive/lib';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, from} from 'rxjs';
 import {environment} from '../../environments/environment';
+
+// @ts-ignore
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import {Storage} from  '@feathersjs/authentication-client';
+
+export class FakeStorage implements Storage {
+  constructor(private nativeStorage : NativeStorage) {}
+  getItem(key: string): Promise<any> {
+  return this.nativeStorage.getItem(key)
+  }
+    setItem?(key: string, value: any): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
+  removeItem?(key: string): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
+
+
+}
 export class ApiQuery {
   query: {
     [prop: string]: any;
@@ -22,7 +40,7 @@ export class ApiService {
   private _feathers = feathers();
   private _socket = io(environment.API_URL);
 
-  constructor() {
+  constructor(private fakeStorage : FakeStorage) {
     
     this._feathers
       .configure(
@@ -31,11 +49,11 @@ export class ApiService {
           {timeout: 8000}
         )
       )
-      // .configure(feathersAuthClient())
+      .configure(feathersAuthClient({storage: NativeStorage}))
       .configure(feathersRx({
         idField: '_id'
       }));
-
+      
     this._socket.on('connect', () => {
       console.log('Connected on ' + environment.API_URL);
     });
