@@ -10,7 +10,7 @@ export default function (app: Application) {
 
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    userName: { type: String, required: true },
+    userName: { type: String, unique: true, required: true },
     roles: { type: String, enum: ['viewer', 'admin'], default: 'viewer' },
     picture: { type: String, default: 'blank.png' },
     about: { type: String, default: '' }

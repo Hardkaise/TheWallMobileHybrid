@@ -11,7 +11,7 @@ export default function (app: Application) {
     ownerId: { type: Schema.ObjectId, required: true },
     receiverIds: { type: [ Schema.ObjectId ], required: true},
     targetId: { type: Schema.ObjectId, required: true },
-    targetType: { type: String, enum: [ 'relation-requests', 'images'], required: true },
+    targetType: { type: String, enum: [ 'relation-requests', 'images', 'image-commentaries', 'likes'], required: true },
     read: { type: Boolean, default: false },
     data: { type: String, required: true }
   }, {
