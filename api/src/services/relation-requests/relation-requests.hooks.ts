@@ -1,5 +1,7 @@
 import * as authentication from '@feathersjs/authentication';
+import createRelation from '../../hooks/create-relation';
 import generateNotification from '../../hooks/generate-notification';
+import verifyRelationUnique from '../../hooks/verify-relation-unique';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -9,7 +11,7 @@ export default {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [verifyRelationUnique(['createdBy', 'withUser'], { agreement: { $nin: [true, false] }})],
     update: [],
     patch: [],
     remove: []
@@ -21,7 +23,7 @@ export default {
     get: [],
     create: [generateNotification()],
     update: [],
-    patch: [],
+    patch: [createRelation()],
     remove: []
   },
 

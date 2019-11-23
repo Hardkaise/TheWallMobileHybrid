@@ -6,6 +6,8 @@ import likes from './likes/likes.service';
 import notifications from './notifications/notifications.service';
 import tags from './tags/tags.service';
 import uploadImages from './upload-images/upload-images.service';
+import relations from './relations/relations.service';
+import relationRequests from './relation-requests/relation-requests.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application) {
@@ -16,4 +18,6 @@ export default function (app: Application) {
   app.configure(notifications);
   app.configure(tags);
   app.configure(uploadImages);
+  app.configure(relations);
+  app.configure(relationRequests);
 }
