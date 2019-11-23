@@ -15,6 +15,10 @@ import { PhotoService } from '../../services/photo.service';
 export class HomePage {
   enter: boolean = false;
   data: any;
+  public like_btn = {
+    color: 'black',
+    icon_name: 'md-heart'
+  };
   constructor(private router : Router,
     private androidPermissions: AndroidPermissions,
     private camera: Camera,

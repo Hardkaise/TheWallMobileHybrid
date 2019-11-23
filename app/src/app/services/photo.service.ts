@@ -48,6 +48,7 @@ export class PhotoService {
   fakeData() {
     this.feedData.push({
       _id: "lel",
+      username: "username",
       img: "assets/img/cat.jpg",
       title: "hello",
       like: "33"
@@ -55,13 +56,14 @@ export class PhotoService {
   
     this.feedData.push({
       _id: "fuck",
-
+      username: "username",
       img: "assets/img/index.jpg",
       title: "test",
       like: "33"
     })
     this.feedData.push({
       _id: "motherfucker",
+      username: "username",
       img: "assets/img/cat.jpg",
       title: "hello",
       like: "33"
