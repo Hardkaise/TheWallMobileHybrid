@@ -25,7 +25,6 @@ export default (options = {}): Hook => {
             relationsWith.push(valueMember);
         });
       });
-
       return app.service('/notifications').create({
         ownerId: result.ownerId,
         receiverIds: relationsWith,
@@ -37,6 +36,7 @@ export default (options = {}): Hook => {
     }
     else if (path === 'relation-requests') {
       const user = await app.service('/users').get(result.createdBy);
+
       return app.service('/notifications').create({
         ownerId: result.createdBy,
         receiverIds: result.withUser,
@@ -45,6 +45,36 @@ export default (options = {}): Hook => {
         read: false,
         data: user.userName + ' would like to be your friend !'
       }).then(() => context)
+    } else if (path === 'image-commentaries') {
+      const user = await app.service('/users').get(result.ownerId);
+      const image = await app.service('/images').get(result.imageId);
+
+      if (result.ownerId.toString() === image.ownerId.toString())
+        return context;
+      return app.service('/notifications').create({
+        ownerId: result.ownerId,
+        receiverIds: image.ownerId,
+        targetId: result._id,
+        targetType: 'image-commentaries',
+        read: false,
+        data: user.userName + ' has commented your post !'
+      }).then(() => context);
+    }
+    else if (path === 'likes') {
+      const user = await app.service('/users').get(result.ownerId);
+      const image = await app.service('/images').get(result.imageId);
+
+      if (result.ownerId.toString() === image.ownerId.toString())
+        return context;
+
+      return app.service('/notifications').create({
+        ownerId: result.ownerId,
+        receiverIds: image.ownerId,
+        targetId: result._id,
+        targetType: 'likes',
+        read: false,
+        data: user.userName + ' has liked your post !'
+      }).then(() => context);
     }
   };
 }
