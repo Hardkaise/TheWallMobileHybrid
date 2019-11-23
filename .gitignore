@@ -853,3 +853,5 @@ local.properties
 .scala_dependencies
 .worksheet
 .idea
+
+api/.env
