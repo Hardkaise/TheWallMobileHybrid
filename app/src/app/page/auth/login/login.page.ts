@@ -3,6 +3,7 @@ import {ApiServiceAxios} from '../../../services/apiServiceAxios.service'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { access } from 'fs';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private apiAxios : ApiServiceAxios, private nativeStorage: NativeStorage, private router : Router) { }
+  constructor(private api : ApiService, private apiAxios : ApiServiceAxios, private nativeStorage: NativeStorage, private router : Router) { }
   errorMessage: string = "";
   ngOnInit() {
   }
@@ -23,14 +24,12 @@ export class LoginPage implements OnInit {
       password: value.password,
       strategy: 'local'
     }
-    this.apiAxios.login('authentication', data).then(payload => {
-      console.log(payload.data.accessToken);
-      this.apiAxios.token = payload.data.accessToken;
-      this.setInNativeStorage('accessToken', payload.data.accessToken)
+    console.log(data);
+    this.api.logIn(data);
+    this.api.isAuth().then(payload => {
+      console.log(payload)
       this.router.navigateByUrl('home');
-    }).catch(err => {
-      console.log("wrong password or login");
-      this.errorMessage = "wrong password or login";
+
     })
   }
   setInNativeStorage(name: string, data: any) {

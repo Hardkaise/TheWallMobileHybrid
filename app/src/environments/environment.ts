@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  API_URL : "https://vbookcreator-dev.herokuapp.com/",
+  API_URL : "https://the-wall-hybrid.herokuapp.com/",
   production: false
 };
 

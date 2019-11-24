@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterPage implements OnInit {
   errorMessage: string;
   
-  constructor(api: ApiService, private apiAxios : ApiServiceAxios, private router : Router ) { }
+  constructor(private api: ApiService, private apiAxios : ApiServiceAxios, private router : Router ) { }
   
   ngOnInit() {
   }
@@ -23,14 +23,19 @@ export class RegisterPage implements OnInit {
       this.errorMessage = "password and confirm password are different";
       return;
     }
-    this.apiAxios.createAccount('users', value).then(payload => {
+    this.api.signUp(value).then(payload =>{
       console.log(payload);
       this.router.navigateByUrl('login');
+    })
 
-    }).catch(err => {
-      console.log(err)
-    this.errorMessage = "something went wrong";
-   })
+  //   this.apiAxios.createAccount('users', value).then(payload => {
+  //     console.log(payload);
+  //     this.router.navigateByUrl('login');
+
+  //   }).catch(err => {
+  //     console.log(err)
+  //   this.errorMessage = "something went wrong";
+  //  })
     // this.authService.register(form.value).subscribe((res) => {
     //   this.router.navigateByUrl('home');
     // });

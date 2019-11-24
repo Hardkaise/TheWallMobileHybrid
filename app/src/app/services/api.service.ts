@@ -6,8 +6,6 @@ import feathersAuthClient from '@feathersjs/authentication-client';
 import feathersRx from 'feathers-reactive/lib';
 import {Observable, Subscription, from} from 'rxjs';
 import {environment} from '../../environments/environment';
-
-// @ts-ignore
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import {Storage} from  '@feathersjs/authentication-client';
 
@@ -25,6 +23,7 @@ export class FakeStorage implements Storage {
 
 
 }
+
 export class ApiQuery {
   query: {
     [prop: string]: any;
@@ -40,8 +39,8 @@ export class ApiService {
   private _feathers = feathers();
   private _socket = io(environment.API_URL);
 
-  constructor(private fakeStorage : FakeStorage) {
-    
+  constructor(
+  ) {
     this._feathers
       .configure(
         feathersSocketIOClient(
@@ -49,11 +48,11 @@ export class ApiService {
           {timeout: 8000}
         )
       )
-      .configure(feathersAuthClient({storage: NativeStorage}))
+      .configure(feathersAuthClient({ storage: localStorage }))
       .configure(feathersRx({
         idField: '_id'
       }));
-      
+
     this._socket.on('connect', () => {
       console.log('Connected on ' + environment.API_URL);
     });
@@ -109,24 +108,6 @@ export class ApiService {
       .catch(() => false);
   }
 
-  signUp(userInfo) {
-    return this.create('users', userInfo)
-      .catch(err => {
-        console.error(err);
-        throw err;
-      });
-  }
-
-  logIn(credentials) {
-    return this._authenticate(credentials)
-      .then(res => {
-        return res;
-      }).then(res => this._getUserData(res.accessToken))
-      .catch(err => {
-        throw err;
-      });
-  }
-
   logOut() {
     this.currentUserId = undefined;
     return this._feathers['logout']();
@@ -146,9 +127,30 @@ export class ApiService {
       });
   }
 
+  signUp(userInfo) {
+    return this.create('users', userInfo)
+      .catch(err => {
+        console.log('here');
+        console.error(err);
+       
+        throw err;
+      });
+  }
+
+  logIn(credentials) {
+    return this._authenticate(credentials)
+      .then(res => {
+        console.log(res)
+        return res;
+      }).then(res => this._getUserData(res.accessToken))
+      .catch(err => {
+        throw err;
+      });
+  }
+
   private _authenticate(
     credentials?: { strategy: string, email: string, password: string }
-  ): any {
+  ): Promise<{ accessToken: string }> {
     return this._feathers['authenticate'](credentials);
   }
 
