@@ -38,16 +38,16 @@ export class CommentaryPage implements OnInit {
                 ownerId: item['ownerId'],
                 text: item['text'],
                 picture: p['uri']
-              }).catch(err => {
-                this.comments.push({
-                  _id: item['_id'],
-                  username: d['userName'],
-                  ownerId: item['ownerId'],
-                  text: item['text'],
-                  picture: "assets/img/index.jpg"
-                });
+              })
+            }).catch(err => {
+              this.comments.push({
+                _id: item['_id'],
+                username: d['userName'],
+                ownerId: item['ownerId'],
+                text: item['text'],
+                picture: "assets/img/index.jpg"
               });
-            });
+            });;
 
           });
         }

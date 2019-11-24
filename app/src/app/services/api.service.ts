@@ -52,8 +52,9 @@ export class ApiService {
   private _feathers = feathers();
   private _socket = io(environment.API_URL);
 
-  constructor(private fakeStorage: FakeStorage
+  constructor(private fakeStorage: FakeStorage,public nativeStorage: NativeStorage
   ) {
+    console.log(NativeStorage)
     this._feathers
       .configure(
         feathersSocketIOClient(
@@ -61,11 +62,11 @@ export class ApiService {
           {timeout: 8000}
         )
       )
-      .configure(feathersAuthClient({ storage: NativeStorage }))
+      .configure(feathersAuthClient({ storage: nativeStorage }))
       .configure(feathersRx({
         idField: '_id'
       }));
-
+      console.log(nativeStorage)
     this._socket.on('connect', () => {
       console.log('Connected on ' + environment.API_URL);
     });
