@@ -25,12 +25,11 @@ export class LoginPage implements OnInit {
       strategy: 'local'
     }
     console.log(data);
-    this.api.logIn(data);
-    this.api.isAuth().then(payload => {
-      console.log(payload)
-      this.router.navigateByUrl('home');
-
+    this.api.logIn(data).then(log => {
+      console.log('here');
+      this.router.navigateByUrl('home')
     })
+    this.errorMessage = "wrong password or login";
   }
   setInNativeStorage(name: string, data: any) {
     this.nativeStorage.setItem(name, data)

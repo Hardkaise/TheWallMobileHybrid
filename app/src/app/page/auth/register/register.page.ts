@@ -26,6 +26,9 @@ export class RegisterPage implements OnInit {
     this.api.signUp(value).then(payload =>{
       console.log(payload);
       this.router.navigateByUrl('login');
+    }).catch(err => {
+      this.errorMessage = "something went wrong";
+
     })
 
   //   this.apiAxios.createAccount('users', value).then(payload => {
