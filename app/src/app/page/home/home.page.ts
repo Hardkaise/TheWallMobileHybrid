@@ -23,7 +23,7 @@ export class HomePage {
     private apiAxios: ApiServiceAxios,
     private androidPermissions: AndroidPermissions,
     private camera: Camera,
-    private photoService: PhotoService,
+    public photoService: PhotoService,
     private apiService: ApiService
     ) { }
   

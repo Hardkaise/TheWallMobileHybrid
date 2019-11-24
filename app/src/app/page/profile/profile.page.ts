@@ -8,8 +8,8 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  private profileData: any= {};
-  constructor(private api : ApiService, private photoService: PhotoService) {  
+  profileData: any= {};
+  constructor(public api : ApiService, public photoService: PhotoService) {  
     // photoService.fakeData();
   }
 

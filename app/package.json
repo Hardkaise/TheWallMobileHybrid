@@ -100,14 +100,14 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-nativestorage": {},
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-android-permissions": {},
       "phonegap-plugin-push": {
         "ANDROID_SUPPORT_V13_VERSION": "27.+",
         "FCM_VERSION": "17.0.+"
-      }
+      },
+      "cordova-plugin-nativestorage": {}
     },
     "platforms": []
   }
