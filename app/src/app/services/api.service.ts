@@ -61,7 +61,7 @@ export class ApiService {
           {timeout: 8000}
         )
       )
-      .configure(feathersAuthClient({ storage: localStorage }))
+      .configure(feathersAuthClient({ storage: NativeStorage }))
       .configure(feathersRx({
         idField: '_id'
       }));

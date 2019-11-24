@@ -31,38 +31,41 @@ export class HomePage {
     this.apiService.isAuth().then(payload => {
       console.log(payload)
     })
-    if (this.photoService.feedData.length === 0) {
-      this.apiService.watch('images', {
-        query: {
-          $sort: {
-            createdAt: -1
-          }
-        }
-      }).subscribe(async value => {
-        console.log(value)
-        let data = [];
-        for (let i in value.data) {
-          const item = value.data[i];
-          this.apiService.get('upload-images', item['fileId']).then(p =>{
-            this.apiService.get('users', item['ownerId']).then(d => {
-              this.photoService.feedData.push({
-                _id: item['_id'],
-                username: d['userName'],
-                ownerId: item['ownerId'],
-                img: p['uri'],
-                fileId: item['fileId'],
-              });
-            })
-                  
-          })
-              
-        }
-        console.log(this.photoService.feedData)
-        // this.photoService.feedData = value.data
-      });
-    }
+    // if (this.photoService.feedData.length === 0) {
+    this.fillData();
+    // }
   } 
-
+  fillData() {
+    this.photoService.feedData = [];
+    this.apiService.watch('images', {
+      query: {
+        $sort: {
+          createdAt: -1
+        }
+      }
+    }).subscribe(async value => {
+      console.log(value)
+      let data = [];
+      for (let i in value.data) {
+        const item = value.data[i];
+        this.apiService.get('upload-images', item['fileId']).then(p =>{
+          this.apiService.get('users', item['ownerId']).then(d => {
+            this.photoService.feedData.push({
+              _id: item['_id'],
+              username: d['userName'],
+              ownerId: item['ownerId'],
+              img: p['uri'],
+              fileId: item['fileId'],
+            });
+          })
+                
+        })
+            
+      }
+      console.log(this.photoService.feedData)
+      // this.photoService.feedData = value.data
+    });
+  }
   capturedSnapURL:string;
  
   cameraOptions: CameraOptions = {
@@ -92,7 +95,10 @@ export class HomePage {
       this.apiService.create('upload-images', {uri: base64Image}).then(payload => {
         console.log(payload);
         this.apiAxios.create('images', {ownerId: this.apiService.currentUserId, fileId: payload['_id']})
-        .then(p => {console.log(p)}).catch(err => {console.log(err)})
+        .then(p => {
+          console.log(p);
+          this.fillData()
+      }).catch(err => {console.log(err)})
       }).catch(err => {
         console.log(err);
       })
@@ -127,22 +133,22 @@ export class HomePage {
         })
        
       })
-    if (this.enter === false && this.capturedSnapURL === undefined) this.takeSnap(); 
+    // if (this.enter === false && this.capturedSnapURL === undefined) this.takeSnap(); 
     console.log("her")
     console.log(this.capturedSnapURL);
   }
 
 
   getFile() {
-    console.log()
-    console.log(this.capturedSnapURL);
-    if (this.capturedSnapURL) 
-    this.photoService.feedData.push({
-      img : this.capturedSnapURL,
-      title: "pushed",
-      like: "32"
-    })
-    console.log(this.capturedSnapURL);
+  //   console.log()
+  //   console.log(this.capturedSnapURL);
+  //   if (this.capturedSnapURL) 
+  //   this.photoService.feedData.push({
+  //     img : this.capturedSnapURL,
+  //     title: "pushed",
+  //     like: "32"
+  //   })
+  //   console.log(this.capturedSnapURL);
   }
 
   openDetailsWithService(index : number) {
