@@ -16,6 +16,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { SharedModule } from './shared/shared.module';
+import { FakeStorage } from './services/api.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { SharedModule } from './shared/shared.module';
     CameraUtils,
     Camera,
     AndroidPermissions,
+    FakeStorage,
     // File,
     // Storage,
     FilePath,

@@ -4,14 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PhotoService {
-  setIdPosArray(_id: any, index: any) {
-    throw new Error("Method not implemented.");
-  }
+ 
   private _feedData: any[] = [];
   private _id: string;
   private _pos: number = 0;
   constructor() { }
-
+  
+  setIdPosArray(_id: any, index: any) {
+    throw new Error("Method not implemented.");
+  }
   set feedData(feedData: any[]) {
     this._feedData = feedData;
   }
@@ -35,10 +36,10 @@ export class PhotoService {
   getfeedDataByid(id: string) {
     console.log(this._pos);
     console.log();
-    if (this._feedData.length === 0) {
-      this.fakeData();
+    // if (this._feedData.length === 0) {
+    //   this.fakeData();
 
-    }
+    // }
     if (this.feedData[this._pos]._id === id) {
       return this.feedData[this._pos]
     }

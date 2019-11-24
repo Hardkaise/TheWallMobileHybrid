@@ -30,17 +30,5 @@ export class RegisterPage implements OnInit {
       this.errorMessage = "something went wrong";
 
     })
-
-  //   this.apiAxios.createAccount('users', value).then(payload => {
-  //     console.log(payload);
-  //     this.router.navigateByUrl('login');
-
-  //   }).catch(err => {
-  //     console.log(err)
-  //   this.errorMessage = "something went wrong";
-  //  })
-    // this.authService.register(form.value).subscribe((res) => {
-    //   this.router.navigateByUrl('home');
-    // });
   }
 }

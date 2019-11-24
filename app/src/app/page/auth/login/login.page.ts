@@ -15,6 +15,7 @@ export class LoginPage implements OnInit {
   errorMessage: string = "";
   ngOnInit() {
   }
+
   login(form: any){
     this.errorMessage = "";
     console.log(form.form.value);
@@ -31,6 +32,7 @@ export class LoginPage implements OnInit {
     })
     this.errorMessage = "wrong password or login";
   }
+  
   setInNativeStorage(name: string, data: any) {
     this.nativeStorage.setItem(name, data)
     .then(

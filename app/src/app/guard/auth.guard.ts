@@ -15,17 +15,19 @@ export class AuthGuard implements CanActivate/*, CanActivateChild, CanLoad */ {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.apiAxios.isAuth()) {
-        return true;
+      // if (this.apiAxios.isAuth()) {
+      //   return true;
+      // }
+       return this.api.isAuth()
+    .then(res => {
+      console.log(res)
+      if (!res) {
+        return this.router.navigate(['/login']);
       }
-     return this.router.navigate(['/authentication']);
-    // return this.api.isAuth()
-    // .then(res => {
-    //   if (!res) {
-    //     return this.router.navigate(['/authentication']);
-    //   }
-    //   return res;
-    // });
+      return res;
+    });
+    //  return this.router.navigate(['/authentication']);
+   
 
   }
   // canActivateChild(
@@ -33,9 +35,15 @@ export class AuthGuard implements CanActivate/*, CanActivateChild, CanLoad */ {
   //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
   //   return true;
   // }
-  // canLoad(
-  //   route: Route,
-  //   segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-  //   return true;
-  // }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+      return this.api.isAuth()
+      .then(res => {
+        console.log(res)
+        if (!res) {
+          return this.router.navigate(['/login']);
+        }
+        return res;
+      });  }
 }

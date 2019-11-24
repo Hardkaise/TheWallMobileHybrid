@@ -12,11 +12,23 @@ import {Storage} from  '@feathersjs/authentication-client';
 export class FakeStorage implements Storage {
   constructor(private nativeStorage : NativeStorage) {}
   getItem(key: string): Promise<any> {
-  return this.nativeStorage.getItem(key)
+    return  new Promise((resolve, reject) => {
+      if (localStorage.getItem(key)) {
+          resolve(localStorage.getItem(key));
+      }
+      reject(new Error(''));
+    });
+      // return localStorage.getItem(key);
+    // return this.nativeStorage.getItem(key)
   }
     setItem?(key: string, value: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
+
+      return  new Promise((resolve, reject) => {
+            resolve(localStorage.setItem(key, value));
+      });
+
+
+    }
   removeItem?(key: string): Promise<any> {
     throw new Error("Method not implemented.");
   }
@@ -34,12 +46,13 @@ export class ApiQuery {
   providedIn: 'root'
 })
 export class ApiService {
+  public infoUser: any;
 
   public currentUserId: string;
   private _feathers = feathers();
   private _socket = io(environment.API_URL);
 
-  constructor(
+  constructor(private fakeStorage: FakeStorage
   ) {
     this._feathers
       .configure(
@@ -70,6 +83,11 @@ export class ApiService {
   public watch<T>(serviceName: string, query: ApiQuery): Observable<Paginated<T>> {
     return (this.service(serviceName))['watch']()
       .find(query);
+    // return (this._feathers // todo: remove 'any' assertion when feathers-reactive typings are up-to-date with buzzard
+    //   .service(serviceName))
+    //   .watch()
+    //   .find(query);
+
   }
 
   public patch<T>(serviceName: string, objectId: string, data: any): Promise<T> {
@@ -141,6 +159,9 @@ export class ApiService {
     return this._authenticate(credentials)
       .then(res => {
         console.log(res)
+        // feathersAuthClient.setAccessToken(res.accessToken)
+        // this._feathers['authenticate'].setAccessToken(res.accessToken)
+        this.infoUser = res.user;
         return res;
       }).then(res => this._getUserData(res.accessToken))
       .catch(err => {
@@ -150,7 +171,7 @@ export class ApiService {
 
   private _authenticate(
     credentials?: { strategy: string, email: string, password: string }
-  ): Promise<{ accessToken: string }> {
+  ): Promise<any> {
     return this._feathers['authenticate'](credentials);
   }
 

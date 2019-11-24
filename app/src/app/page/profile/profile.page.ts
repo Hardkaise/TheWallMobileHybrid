@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../services/photo.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,17 +9,18 @@ import { PhotoService } from '../../services/photo.service';
 })
 export class ProfilePage implements OnInit {
   private profileData: any= {};
-  constructor(private photoService: PhotoService) {  
-    photoService.fakeData();
+  constructor(private api : ApiService, private photoService: PhotoService) {  
+    // photoService.fakeData();
   }
 
   ngOnInit() {
-    this.profileData = {
-      username: "test",
-      profileImg : "assets/img/index.jpg",
-      email : "a@a.a",
-      details: "hello i'm here"
-    }
+    console.log(this.api.infoUser)
+    this.api.get('upload-images', this.api.infoUser.picture).then(payload => {
+     this.profileData.profileImg = payload['uri'];
+    })
+    // this.profileData = {
+    //   profileImg : "assets/img/index.jpg",
+    // }
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-setting',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingPage implements OnInit {
 
-  constructor() { }
+  constructor(private api : ApiService, private router : Router) { }
 
   ngOnInit() {
+  }
+  logout() {
+    this.api.logOut();
+    this.router.navigateByUrl('login')
   }
 
 }
