@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-button  (click)="prevPage()" clear class="icon-space ion-no-padding" fill="clear"  color="dark" >
+            <ion-icon   name="md-arrow-back" slot="icon-only"></ion-icon>
+          </ion-button>
+    </ion-buttons>
+    <ion-title>
+      commentary
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      title 
+    </ion-list-header>
+
+    <ion-item *ngFor="let it of comments">
+      <ion-avatar slot="start">
+        <img src={{it.picture}}>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{it.username}}</h2>
+        <p>{{it.text}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+      <form #form="ngForm" (ngSubmit)="login(form)">
+
+    <ion-input name="addcomment" type="text" placeholder="comment"  ngModel required></ion-input>
+    <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">add comment</ion-button>
+    </form>
+  </ion-item>
+</ion-content>

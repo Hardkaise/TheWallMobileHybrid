@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="title-div ion-text-center">
+    <ion-text class="ion-text-center">{{data.title}}</ion-text>
+  </div>
+  <img class="img-details" *ngIf="data" src={{data.img}}/>
+  <div class="w-100">
+    <div class="ion-text-center">
+      <ion-text class="ion-text-center">Commentaire</ion-text>
+    </div>
+  </div>
+</ion-content>
