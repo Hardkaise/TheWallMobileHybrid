@@ -1,8 +1,0 @@
-{
-  "name": "mobile-hybrid-app",
-  "integrations": {
-    "cordova": {},
-    "capacitor": {}
-  },
-  "type": "angular"
-}

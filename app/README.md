@@ -1,2 +1,0 @@
-# mobile-hybrid-project-ionic
-
